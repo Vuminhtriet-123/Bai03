@@ -1,0 +1,30 @@
+<configuration>
+    <!-- Appender ghi log ra console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--
+                %d{HH:mm:ss} : thời gian
+                [%thread]     : tên thread
+                %-5level      : cấp độ log (INFO, DEBUG...) căn trái 5 ký tự
+                %logger{36}   : tên class (tối đa 36 ký tự)
+                %msg          : nội dung log
+                %n            : xuống dòng
+            -->
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Ghi log ra file (tùy chọn) -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/bank-system.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Gốc: mức log mặc định là INFO, ghi ra cả console và file -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

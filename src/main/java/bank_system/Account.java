@@ -111,8 +111,7 @@ public abstract class Account {
     public void addTransaction(Transaction transaction) {
         if (transaction != null) {
             transactions.add(transaction);
-            logger.debug("Thêm giao dịch {} vào tài khoản {}",
-                    transaction.getType(), accountNumber);
+            logger.debug("Thêm giao dịch vào tài khoản {}", accountNumber);
         }
     }
 

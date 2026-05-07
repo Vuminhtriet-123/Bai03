@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Java CI with Maven - Matrix OS
 
 on:
   push:
@@ -8,20 +8,27 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
+
+      - name: Build and test with Maven
         run: mvn clean test package
-      - name: Upload JAR
+
+      - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: bank-system-jar
+          name: app-jar-${{ matrix.os }}
           path: target/*.jar
